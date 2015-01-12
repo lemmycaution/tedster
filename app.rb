@@ -32,7 +32,7 @@ class App < Goliath::API
         
         draw = Magick::Draw.new
         draw.gravity = Magick::WestGravity
-        draw.pointsize = SIZE
+        draw.pointsize = size
         draw.stroke = 'transparent'
         draw.fill = '#000000'
         draw.font_weight = Magick::NormalWeight
