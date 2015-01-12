@@ -8,8 +8,6 @@ require "open-uri"
 class App < Goliath::API
   
   TED = "TED"
-  SIZE = 50
-  PAD = 4  
   
   use Goliath::Rack::Params
   use(Rack::Static,
@@ -23,35 +21,37 @@ class App < Goliath::API
       when 'GET'
         [200,{'Content-Type' => "text/html"},File.read("./public/index.html")]
       when 'POST'
+        size = params['size'] ? params['size'].to_i : 50
         urlimage = open params['image_url']
         image = Magick::ImageList.new 
         image.from_blob(urlimage.read)
+        img_width = image.cur_image.bounding_box.width
+        img_height = image.cur_image.bounding_box.height
+                
         title = params['title'].downcase
         
-        text = Magick::Draw.new
-        text_ted_metrics = text.get_type_metrics TED
-        puts text_ted_metrics
-        text.annotate(image, 0, 0, -text_ted_metrics.width*2-PAD, 0, title) {
-          self.gravity = Magick::CenterGravity
-          self.pointsize = SIZE
-          self.stroke = 'transparent'
-          self.fill = '#000000'
-          self.font_weight = Magick::BoldWeight
-          self.font_style = Magick::NormalStyle
-        }
+        draw = Magick::Draw.new
+        draw.gravity = Magick::WestGravity
+        draw.pointsize = SIZE
+        draw.stroke = 'transparent'
+        draw.fill = '#000000'
+        draw.font_weight = Magick::NormalWeight
+        draw.font_style = Magick::NormalStyle
         
-        text_ted = Magick::Draw.new
-        text_metrics = text_ted.get_type_metrics title
-        puts text_metrics
-        text_ted.annotate(image, 0, 0, text_metrics.width*2+PAD, 0, TED) {
-          self.gravity = Magick::CenterGravity
-          self.pointsize = SIZE
-          self.stroke = 'transparent'
-          self.fill = '#ff0000'
-          self.font_weight = Magick::BoldWeight
-          self.font_style = Magick::NormalStyle
-          self.font_family = "Helvetica"
-        }        
+        ted_metrics = draw.get_type_metrics TED
+        ted_width  = ted_metrics.width
+        ted_height  = ted_metrics.height          
+
+        title_metrics = draw.get_type_metrics title
+        title_width  = title_metrics.width
+        title_height  = title_metrics.height        
+        x = (img_width - title_width - ted_width) / 2
+        y = (img_height - title_height) / 2
+        draw.annotate(image, title_width, title_height, x, y, title) 
+        
+        draw.fill = '#ff0000'
+        draw.font_weight = Magick::BoldWeight        
+        draw.annotate(image, ted_width, ted_height, x + title_width, y, TED) 
 
         [200, {'Content-Type' => "image/jpeg"}, image.to_blob]
     end
