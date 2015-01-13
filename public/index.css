@@ -1,0 +1,135 @@
+/* RESET */
+body,
+button {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+svg {
+  max-height: 100%;
+}
+
+.bg{
+  position:absolute;
+  z-index:1;  
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  
+  background-size:cover;
+}
+
+body{
+  height:100vh;   
+  width:100%;  
+  display:flex;
+  overflow:hidden;
+}
+
+.centered{
+  position:relative;
+  z-index:2;
+  width:100%;    
+  height:100vh;     
+  display: flex;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  justify-content: center;
+}
+h1{
+  font-weight:normal;
+}
+.red{
+  color:#ff0000;
+  font-weight:bold;
+}
+.cursor{
+  width:1px;
+  height:2rem;
+  display:inline-block;
+  background-color:#000000;
+  margin:0 0.125rem;
+}
+.cursor {
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+.cursor {
+  -webkit-animation-iteration-count: infinite;
+}
+@-webkit-keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+@keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.cursor {
+  -webkit-animation-name: flash;
+          animation-name: flash;
+}
+.download{
+  position:absolute;
+  top:60%;
+  left:0;
+  width:100%;  
+  text-align:center;
+  z-index:5;
+  color:white;
+  display:none;  
+  text-shadow:1 1 #666;
+}
+
+body{
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;  
+  font-size:16px;
+  line-height:1rem;
+}
+input{
+  border:none;
+  font-family:inherit;
+  text-align:center;
+  background:none;
+}
+input:focus{
+  box-shadow:none;
+  outline:none;
+  border:none;
+}
+form,input{
+  opacity:0;  
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  z-index:3;
+}

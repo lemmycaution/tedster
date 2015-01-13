@@ -12,23 +12,27 @@ class App < Goliath::API
   use Goliath::Rack::Params
   use(Rack::Static,
     :root => Goliath::Application.app_path("./public"),
-    :urls => ['/images', '/index.html']
+    :urls => ['/images', '/index.html', '/index.js', '/index.css']
   )
   
   def response env
 
-    case env['REQUEST_METHOD'] 
-      when 'GET'
+    case env['REQUEST_PATH'] 
+      when '/'
         [200,{'Content-Type' => "text/html"},File.read("./public/index.html")]
-      when 'POST'
+      when '/image'
         size = params['size'] ? params['size'].to_i : 50
-        urlimage = open params['image_url']
-        image = Magick::ImageList.new 
-        image.from_blob(urlimage.read)
-        img_width = image.cur_image.bounding_box.width
-        img_height = image.cur_image.bounding_box.height
+        # urlimage = open params['image_url']
+        # image = Magick::ImageList.new
+        # image.from_blob(urlimage.read)
+        
+        # img_width = image.cur_image.bounding_box.width
+        # img_height = image.cur_image.bounding_box.height
+        image = Magick::Image.read("./public/images/#{params['image']}").first
+        img_width = image.bounding_box.width
+        img_height = image.bounding_box.height        
                 
-        title = params['title'].downcase
+        title = params['text'].downcase
         
         draw = Magick::Draw.new
         draw.gravity = Magick::WestGravity
