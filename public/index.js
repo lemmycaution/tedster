@@ -29,14 +29,16 @@
       image = images[Math.floor(Math.random()*images.length)];
 
       downloadEl.setAttribute("style", "display:block");
+      titleWithoutTed = title.replace(/ted$/i,"");
       downloadLinkEl.setAttribute("href", "/image?text=" + 
-        encodeURIComponent(title.replace(/ted$/i,"")) + 
+        encodeURIComponent(titleWithoutTed) + 
         "&image=" + encodeURIComponent(image) + 
         "&size=" + SIZE
       );
+      downloadLinkEl.setAttribute("download",titleWithoutTed + "TED")
       
       image = "url(/images/"+image+")";      
-      title = title.replace(/ted$/i,"") + title.replace(pat,TED);      
+      title = titleWithoutTed + title.replace(pat,TED);      
     }else{
       image = "none";
       downloadEl.removeAttribute("style");      
