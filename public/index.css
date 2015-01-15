@@ -1,4 +1,8 @@
-/* RESET */
+/*
+  Basscss Custom Build
+  http://basscss.com
+*/
+
 body,
 button {
   margin: 0;
@@ -19,6 +23,76 @@ img {
 svg {
   max-height: 100%;
 }
+
+/* Basscss Base Typography */
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  line-height: 1.5;
+  font-size: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  line-height: 1.25;
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
+
+h1,
+.h1 {
+  font-size: 2rem;
+}
+
+
+/* Basscss Utility Headings */
+
+.h00 {
+  font-size: 4rem;
+}
+
+.h0 {
+  font-size: 3rem;
+}
+
+@media (min-width: 52em) {
+  .h00-responsive {
+    font-size: 8vw;
+  }
+
+  .h0-responsive {
+    font-size: 6vw;
+  }
+
+  .h1-responsive {
+    font-size: 4vw;
+  }
+}
+
+@media (min-width: 96em) {
+  .h00-responsive {
+    font-size: 7.68rem;
+  }
+
+  .h0-responsive {
+    font-size: 5.76rem;
+  }
+
+  .h1-responsive {
+    font-size: 3.84rem;
+  }
+}
+
+
+
+/* Basscss Defaults */
+
+
 
 .bg{
   position:absolute;
@@ -58,7 +132,7 @@ h1{
 }
 .cursor{
   width:1px;
-  height:2rem;
+  height:4rem;
   display:inline-block;
   background-color:#000000;
   margin:0 0.125rem;
@@ -98,16 +172,20 @@ h1{
 }
 .download{
   position:absolute;
-  top:60%;
+  top:80%;
   left:0;
   width:100%;  
   text-align:center;
   z-index:5;
   color:white;
   display:none;  
-  text-shadow:1 1 #666;
 }
-
+.download-link{
+  background:#fff;
+  padding:0.5rem 1rem;
+  color: #333;
+  text-decoration:none;
+}
 body{
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;  
   font-size:16px;
