@@ -21,14 +21,19 @@ class App < Goliath::API
       when '/'
         [200,{'Content-Type' => "text/html"},File.read("./public/index.html")]
       when '/image'
-        size = params['size'] ? params['size'].to_i : 50
-        # urlimage = open params['image_url']
-        # image = Magick::ImageList.new
-        # image.from_blob(urlimage.read)
+        raise "Title Missing" unless params['text']
         
-        # img_width = image.cur_image.bounding_box.width
-        # img_height = image.cur_image.bounding_box.height
-        image = Magick::Image.read("./public/images/#{params['image']}").first
+        size = params['size'] ? params['size'].to_i : 50
+        if params['image_url']
+          urlimage = open params['image_url']
+          image = Magick::ImageList.new
+          image.from_blob(urlimage.read)
+        elsif params['image']
+          image = Magick::Image.read("./public/images/#{params['image']}").first
+        else
+          raise "Image Missing"  
+        end  
+        
         img_width = image.bounding_box.width
         img_height = image.bounding_box.height        
                 
